@@ -1,10 +1,10 @@
 /*----------------------------
- *   @file£º     recognize.h
- *   @version£º  1.00[By ZST]
- *   @date£º     2020-5-12
- *   @brief£º    Êı×ÖÊ¶±ğ Í·ÎÄ¼ş
- *   @Author£º   Zheng Shitao Ö£Ê±ÌÎ
- *   http:\\github
+ *   @fileï¼š     recognize.h
+ *   @versionï¼š  1.00[By ZST]
+ *   @dateï¼š     2020-5-12
+ *   @briefï¼š    æ•°å­—è¯†åˆ« å¤´æ–‡ä»¶
+ *   @Authorï¼š   Zheng Shitao éƒ‘æ—¶æ¶›
+ *   https://github.com/zhengshitao0328/number_recognize-opencv3
  *----------------------------
  */
 #ifndef _recognize_H_
@@ -16,10 +16,10 @@ using namespace cv;
 using namespace std;
 class recognize {
 public:
-	Mat scr;  //Ô­ÈıÍ¨µÀÍ¼Ïñ
-    Mat dst;  //»Ò¶ÈÄ¿±êÍ¼Ïñ
-    vector<Mat> models;  //Ä£°åÈİÆ÷
-    vector<Rect> rects;  //Êı×Ö¿òÈİÆ÷
+	Mat scr;  //åŸä¸‰é€šé“å›¾åƒ
+    Mat dst;  //ç°åº¦ç›®æ ‡å›¾åƒ
+    vector<Mat> models;  //æ¨¡æ¿å®¹å™¨
+    vector<Rect> rects;  //æ•°å­—æ¡†å®¹å™¨
 public:
 	recognize(Mat input_scr, Mat input_dst);
 	void prepare();
