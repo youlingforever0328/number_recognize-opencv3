@@ -1,47 +1,47 @@
 /*----------------------------
- *   @file£º     recognize.cpp
- *   @version£º  1.00[By ZST]
- *   @date£º     2020-5-12
- *   @brief£º    Êı×ÖÊ¶±ğ¼°º¯ÊıÊµÏÖ  Ô´ÎÄ¼ş
- *   @Author£º   Zheng Shitao Ö£Ê±ÌÎ
- *   http:\\github
+ *   @fileï¼š     recognize.cpp
+ *   @versionï¼š  1.00[By ZST]
+ *   @dateï¼š     2020-5-12
+ *   @briefï¼š    æ•°å­—è¯†åˆ«åŠå‡½æ•°å®ç°  æºæ–‡ä»¶
+ *   @Authorï¼š   Zheng Shitao éƒ‘æ—¶æ¶›
+ *   https://github.com/zhengshitao0328/number_recognize-opencv3
  *----------------------------
  */
 #include "recognize.h"
 /**********************
- funtion£º  recognizeÀàµÄ¹¹Ôìº¯Êı
- parameter£ºÔ­ÈıÍ¨µÀÍ¼Ïñ£¬»Ò¶ÈÄ¿±êÍ¼Ïñ
+ funtionï¼š  recognizeç±»çš„æ„é€ å‡½æ•°
+ parameterï¼šåŸä¸‰é€šé“å›¾åƒï¼Œç°åº¦ç›®æ ‡å›¾åƒ
 **********************/
 recognize::recognize(Mat input_scr, Mat input_dst)
 {
-	scr = input_scr;//³õÊ¼»¯×Ô¼ºµÄscrÊôĞÔ
-    dst = input_dst;//³õÊ¼»¯×Ô¼ºµÄdstÊôĞÔ
+	scr = input_scr;//åˆå§‹åŒ–è‡ªå·±çš„scrå±æ€§
+    dst = input_dst;//åˆå§‹åŒ–è‡ªå·±çš„dstå±æ€§
 }
 /**********************
-funtion£º  dst Ô¤´¦Àí
-parameter£ºÎŞ
-return:    ÎŞ
+funtionï¼š  dst é¢„å¤„ç†
+parameterï¼šæ— 
+return:    æ— 
 **********************/
 void recognize::prepare()
 {
-	threshold(dst, dst, 80, 255, THRESH_BINARY_INV | THRESH_OTSU);//¶ÔÍ¼Ïñ½øĞĞ¶şÖµ»¯
-	Mat element_e = getStructuringElement(MORPH_RECT, Size(1, 1));//¸¯Ê´²Ù×÷µÄÄÚºË
-	Mat element_d = getStructuringElement(MORPH_RECT, Size(3, 3));//ÅòÕÍ²Ù×÷µÄÄÚºË
+	threshold(dst, dst, 80, 255, THRESH_BINARY_INV | THRESH_OTSU);//å¯¹å›¾åƒè¿›è¡ŒäºŒå€¼åŒ–
+	Mat element_e = getStructuringElement(MORPH_RECT, Size(1, 1));//è…èš€æ“ä½œçš„å†…æ ¸
+	Mat element_d = getStructuringElement(MORPH_RECT, Size(3, 3));//è†¨èƒ€æ“ä½œçš„å†…æ ¸
 	Mat dst1, dst2;
-	erode(dst, dst1, element_e);//¸¯Ê´
-	dilate(dst1, dst2, element_d);//ÅòÕÍ
+	erode(dst, dst1, element_e);//è…èš€
+	dilate(dst1, dst2, element_d);//è†¨èƒ€
     dst = dst2;
 }
 /**********************
-funtion£º  Ä£°åÆ¥Åä·¨ÇóÁ½ÕÅÍ¼Æ¬Ö®¼äµÄ¾àÀë
-parameter£ºÆ¥ÅäÍ¼Ïñ£¬Ä£°åÍ¼Ïñ
-return:    Á½ÕÅÍ¼Æ¬Ö®¼äµÄ¾àÀë
+funtionï¼š  æ¨¡æ¿åŒ¹é…æ³•æ±‚ä¸¤å¼ å›¾ç‰‡ä¹‹é—´çš„è·ç¦»
+parameterï¼šåŒ¹é…å›¾åƒï¼Œæ¨¡æ¿å›¾åƒ
+return:    ä¸¤å¼ å›¾ç‰‡ä¹‹é—´çš„è·ç¦»
 **********************/
 int recognize::distance(Mat scr1, Mat model)
 {
 	if (scr1.size() != model.size())
 	{
-		printf("The two image is not in the same size£¡£¡£¡£¡£¡");
+		printf("The two image is not in the same sizeï¼ï¼ï¼ï¼ï¼");
 		return 0.0;
 	}
 	int sum = 0;
@@ -58,26 +58,26 @@ int recognize::distance(Mat scr1, Mat model)
 	return sum;
 }
 /**********************
-funtion£º  »ñÈ¡ dst Ä¿±êÍ¼ÏñÉÏËùÓĞÊı×ÖµÄ×îĞ¡Íâ½Ó¿ò
-parameter£ºÎŞ
-return:    ÎŞ
+funtionï¼š  è·å– dst ç›®æ ‡å›¾åƒä¸Šæ‰€æœ‰æ•°å­—çš„æœ€å°å¤–æ¥æ¡†
+parameterï¼šæ— 
+return:    æ— 
 **********************/
 void recognize::Get_odj_box()
 {
 	vector<vector<Point>> contours;
 	vector<Vec4i> hierarchy;
-	findContours(dst, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE, Point(0, 0));    //ÌáÈ¡ËùÓĞÊı×ÖµÄÂÖÀª
-	Rect min_box;//Êı×ÖµÄ×îĞ¡Íâ½Ó¾ØĞÎ¿ò
+	findContours(dst, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE, Point(0, 0));    //æå–æ‰€æœ‰æ•°å­—çš„è½®å»“
+	Rect min_box;//æ•°å­—çš„æœ€å°å¤–æ¥çŸ©å½¢æ¡†
 	for (int i = 0; i < contours.size(); i++)
 	{
 		min_box = boundingRect(contours[i]);
-		rects.push_back(boundingRect(contours[i]));      //´¢´æ×îĞ¡Íâ½Ó¾ØĞÎ¿ò
+		rects.push_back(boundingRect(contours[i]));      //å‚¨å­˜æœ€å°å¤–æ¥çŸ©å½¢æ¡†
 	}
 }
 /**********************
-funtion£º  Ê¶±ğµ¥¸öÊı×Ö
-parameter£º´ıÊ¶±ğµÄ·Ö¸îÖ®ºóµÄÊı×Ö¶şÖµ»¯Í¼Ïñ£¬num_img : dst¾­¾ØĞÎ¿ò½ØÈ¡Ö®ºóµÄÍ¼Ïñ
-return:    Ê¶±ğ½á¹û
+funtionï¼š  è¯†åˆ«å•ä¸ªæ•°å­—
+parameterï¼šå¾…è¯†åˆ«çš„åˆ†å‰²ä¹‹åçš„æ•°å­—äºŒå€¼åŒ–å›¾åƒï¼Œnum_img : dstç»çŸ©å½¢æ¡†æˆªå–ä¹‹åçš„å›¾åƒ
+return:    è¯†åˆ«ç»“æœ
 **********************/
 int recognize::recognize_single(Mat num_img)
 {
@@ -88,9 +88,9 @@ int recognize::recognize_single(Mat num_img)
 	for (int i = 0; i < 9; i++)
 	{
 		temp = num_img.clone();
-		Mat Template = models[i];//ÒÑ¾­ÊÇ¶şÖµ»¯ºóµÄÍ¼Ïñ
-		resize(temp, temp, Template.size(),INTER_AREA);//µ÷Õûµ½ºÍÄ£°åÒ»ÑùµÄ´óĞ¡		
-		dis = distance(temp,Template);//ÇóÄ¿±êÓëÄ£°åÖ®¼äµÄ¾àÀë
+		Mat Template = models[i];//å·²ç»æ˜¯äºŒå€¼åŒ–åçš„å›¾åƒ
+		resize(temp, temp, Template.size(),INTER_AREA);//è°ƒæ•´åˆ°å’Œæ¨¡æ¿ä¸€æ ·çš„å¤§å°		
+		dis = distance(temp,Template);//æ±‚ç›®æ ‡ä¸æ¨¡æ¿ä¹‹é—´çš„è·ç¦»
 		printf("distance = %d\n", dis);
 		if (dis < min)
 		{
@@ -98,52 +98,52 @@ int recognize::recognize_single(Mat num_img)
 			recog_num = i + 1;
 		}
 	}
-	printf("Í¼Æ¬ÓëÄ£°åµÄ×î¶Ì¾àÀëÊÇ%d \n", min);
-	printf("Æ¥ÅäµÄÊı×ÖÊÇ%d\n", recog_num);
+	printf("å›¾ç‰‡ä¸æ¨¡æ¿çš„æœ€çŸ­è·ç¦»æ˜¯%d \n", min);
+	printf("åŒ¹é…çš„æ•°å­—æ˜¯%d\n", recog_num);
 	return recog_num;
 }
 /**********************
-funtion£º  Ê¶±ğÒ»ÕÅÍ¼Æ¬ÉÏµÄËùÓĞÊı×Ö
-parameter£ºÎŞ
-return:    ÎŞ
+funtionï¼š  è¯†åˆ«ä¸€å¼ å›¾ç‰‡ä¸Šçš„æ‰€æœ‰æ•°å­—
+parameterï¼šæ— 
+return:    æ— 
 **********************/
 void recognize::Recognize_All()
 {
-	int num = 0; //´æ´¢Êı×ÖÊ¶±ğµÄ½á¹û
+	int num = 0; //å­˜å‚¨æ•°å­—è¯†åˆ«çš„ç»“æœ
 	Mat num_img, dst_temp;
 	dst_temp = dst.clone();
-	for (int i = 0; i < rects.size(); i++) //¶ÔÍ¼ÏñÖĞËùÓĞÊı×Ö·Ö±ğÊ¶±ğ
+	for (int i = 0; i < rects.size(); i++) //å¯¹å›¾åƒä¸­æ‰€æœ‰æ•°å­—åˆ†åˆ«è¯†åˆ«
 	{
-		num_img = dst_temp(rects[i]);      //½ØÈ¡¸±±¾dstµÄÊı×Ö²¿·Ö
-		rectangle(scr, rects[i], CV_RGB(255, 0, 0));  //ÔÚ×Ô¼ºµÄÔ­Í¼ÉÏ±ê³öÊı×ÖÇøÓò¿ò
-		num = recognize_single(num_img);  //Æ¥ÅäµÃµ½Ê¶±ğ½á¹û
+		num_img = dst_temp(rects[i]);      //æˆªå–å‰¯æœ¬dstçš„æ•°å­—éƒ¨åˆ†
+		rectangle(scr, rects[i], CV_RGB(255, 0, 0));  //åœ¨è‡ªå·±çš„åŸå›¾ä¸Šæ ‡å‡ºæ•°å­—åŒºåŸŸæ¡†
+		num = recognize_single(num_img);  //åŒ¹é…å¾—åˆ°è¯†åˆ«ç»“æœ
 		putText(scr,
 			std::to_string(num),
 			Point(rects[i].x, rects[i].y - 5),
 			FONT_HERSHEY_COMPLEX,
 			2,
-			CV_RGB(0, 0, 205));//ÔÚÔ­Í¼ÏñÉÏ±ê³ö±ğ½á¹û
+			CV_RGB(0, 0, 205));//åœ¨åŸå›¾åƒä¸Šæ ‡å‡ºåˆ«ç»“æœ
 	}
 }
 /**********************
-funtion£º  ±£´æÊ¶±ğ½á¹û
-parameter£ºÎŞ
-return:    ÎŞ
+funtionï¼š  ä¿å­˜è¯†åˆ«ç»“æœ
+parameterï¼šæ— 
+return:    æ— 
 **********************/
 void recognize::result_write()
 {
 	imwrite("D:\\result.jpg", scr);
 }
 /**********************
-funtion£º  Ê¶±ğÊı×ÖÖ÷º¯Êı
-parameter£ºÎŞ
-return:    ÎŞ
+funtionï¼š  è¯†åˆ«æ•°å­—ä¸»å‡½æ•°
+parameterï¼šæ— 
+return:    æ— 
 **********************/
 void recognize::Number_recognize()
 {
-	Get_Model(models);//Ìî³ä×Ô¼ºµÄmodels, µÃµ½9¸öÄ£°åÍ¼Ïñ;
-	prepare();        //Ô¤´¦ÀíÄ¿±êÍ¼Ïñ,´¦Àí dst£»
-	Get_odj_box();    //µÃµ½ËùÓĞÊı×Ö¿ò£¬Í¨¹ı ×Ô¼ºµÄ dst Ìî³ä ×Ô¼ºµÄ rects
-	Recognize_All();  //Ê¶±ğËùÓĞÊı×Ö
-	result_write();   //±£´æ½á¹û
+	Get_Model(models);//å¡«å……è‡ªå·±çš„models, å¾—åˆ°9ä¸ªæ¨¡æ¿å›¾åƒ;
+	prepare();        //é¢„å¤„ç†ç›®æ ‡å›¾åƒ,å¤„ç† dstï¼›
+	Get_odj_box();    //å¾—åˆ°æ‰€æœ‰æ•°å­—æ¡†ï¼Œé€šè¿‡ è‡ªå·±çš„ dst å¡«å…… è‡ªå·±çš„ rects
+	Recognize_All();  //è¯†åˆ«æ‰€æœ‰æ•°å­—
+	result_write();   //ä¿å­˜ç»“æœ
 }
