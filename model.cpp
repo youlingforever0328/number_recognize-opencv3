@@ -1,10 +1,10 @@
 /*----------------------------
- *   @file£º     model.cpp
- *   @version£º  1.00[By ZST]
- *   @date£º     2020-5-10
- *   @brief£º    Êı×ÖÊ¶±ğÄ£°åÖÆ×÷º¯ÊıÊµÏÖ  Ô´ÎÄ¼ş
- *   @Author£º   Zheng Shitao Ö£Ê±ÌÎ
- *   http:\\github
+ *   @fileï¼š     model.cpp
+ *   @versionï¼š  1.00[By ZST]
+ *   @dateï¼š     2020-5-10
+ *   @briefï¼š    æ•°å­—è¯†åˆ«æ¨¡æ¿åˆ¶ä½œå‡½æ•°å®ç°  æºæ–‡ä»¶
+ *   @Authorï¼š   Zheng Shitao éƒ‘æ—¶æ¶›
+ *   https://github.com/zhengshitao0328/number_recognize-opencv3
  *----------------------------
  */
 #include <opencv2/opencv.hpp>
@@ -14,9 +14,9 @@
 using namespace cv;
 using namespace std;
 /**********************
-funtion£º  Í³¼ÆÃ¿Ò»ÁĞµÄÏñËØÖµµÄºÍ
-parameter£ºÁĞÊı£¬Í¼Ïñ
-return:    ºÍ
+funtionï¼š  ç»Ÿè®¡æ¯ä¸€åˆ—çš„åƒç´ å€¼çš„å’Œ
+parameterï¼šåˆ—æ•°ï¼Œå›¾åƒ
+return:    å’Œ
 **********************/
 int col_total(int col, Mat input)
 {
@@ -28,9 +28,9 @@ int col_total(int col, Mat input)
 	return total;
 }
 /**********************
-funtion£º  Í³¼ÆÃ¿Ò»ĞĞµÄÏñËØÖµµÄºÍ
-parameter£ºĞĞÊı£¬Í¼Ïñ
-return:    ºÍ
+funtionï¼š  ç»Ÿè®¡æ¯ä¸€è¡Œçš„åƒç´ å€¼çš„å’Œ
+parameterï¼šè¡Œæ•°ï¼Œå›¾åƒ
+return:    å’Œ
 **********************/
 int row_total(int row, Mat input)
 {
@@ -42,9 +42,9 @@ int row_total(int row, Mat input)
 	return total;
 }
 /**********************
-funtion£º  ´¹Ö±·Ö¸îÍ¼Ïñ£¨´Ó×óÍùÓÒ£©£¬½«1-9·Ö¸î¿ªÀ´
-parameter£º·Ö¸îµÄÆğÊ¼Î»ÖÃ£¨×ó±ß£©£¬´ı·Ö¸îµÄÍ¼Ïñ £¬´æ´¢Ä£°åµÄÈİÆ÷ 
-return:    ÏÂÒ»´Î·Ö¸îµÄÆğÊ¼µã£¨×ó±ß£©
+funtionï¼š  å‚ç›´åˆ†å‰²å›¾åƒï¼ˆä»å·¦å¾€å³ï¼‰ï¼Œå°†1-9åˆ†å‰²å¼€æ¥
+parameterï¼šåˆ†å‰²çš„èµ·å§‹ä½ç½®ï¼ˆå·¦è¾¹ï¼‰ï¼Œå¾…åˆ†å‰²çš„å›¾åƒ ï¼Œå­˜å‚¨æ¨¡æ¿çš„å®¹å™¨ 
+return:    ä¸‹ä¸€æ¬¡åˆ†å‰²çš„èµ·å§‹ç‚¹ï¼ˆå·¦è¾¹ï¼‰
 **********************/
 int cut_image_y(int col, Mat dst, vector<Mat>& models)
 {
@@ -52,7 +52,7 @@ int cut_image_y(int col, Mat dst, vector<Mat>& models)
 	int left = 0;
 	int j = 0;
 	
-	if (col == 0)//¶ÔÄ£°åÊı×Ö¡°1¡±½øĞĞÌØÊâ´¦Àí
+	if (col == 0)//å¯¹æ¨¡æ¿æ•°å­—â€œ1â€è¿›è¡Œç‰¹æ®Šå¤„ç†
 	{
 		Mat model, dst2;
 		dst2 = dst.clone();
@@ -88,9 +88,9 @@ int cut_image_y(int col, Mat dst, vector<Mat>& models)
 	return right;
 }
 /**********************
-funtion£º  Ë®Æ½·Ö¸îÍ¼Ïñ£¨´ÓÉÏÍùÏÂ£©£¬È¥³ıÊı×ÖÖ®ÍâµÄ¶àÓà²¿·Ö
-parameter£ºÄ£°åĞòºÅ£¨1-9£©£¬´ı·Ö¸îµÄÍ¼Ïñ
-return:    ÎŞ
+funtionï¼š  æ°´å¹³åˆ†å‰²å›¾åƒï¼ˆä»ä¸Šå¾€ä¸‹ï¼‰ï¼Œå»é™¤æ•°å­—ä¹‹å¤–çš„å¤šä½™éƒ¨åˆ†
+parameterï¼šæ¨¡æ¿åºå·ï¼ˆ1-9ï¼‰ï¼Œå¾…åˆ†å‰²çš„å›¾åƒ
+return:    æ— 
 **********************/
 Mat cut_image_x(int num, Mat dst)
 {
@@ -124,9 +124,9 @@ Mat cut_image_x(int num, Mat dst)
 	return model;
 }
 /**********************
-funtion£º  ·Ö±ğÈ¥³ıÊı×ÖÄ£°å1-9Ö®ÍâµÄ¶àÓà²¿·Ö
-parameter£ºÎŞ
-return:    ÎŞ
+funtionï¼š  åˆ†åˆ«å»é™¤æ•°å­—æ¨¡æ¿1-9ä¹‹å¤–çš„å¤šä½™éƒ¨åˆ†
+parameterï¼šæ— 
+return:    æ— 
 **********************/
 void cut_model(vector<Mat>& models)
 {
@@ -137,23 +137,23 @@ void cut_model(vector<Mat>& models)
 	}
 }
 /**********************
-funtion£º  »ñµÃÊı×ÖÍ¼ÏñµÄ9¸öÄ£°å
-parameter£ºÎŞ
-return:    ÎŞ
+funtionï¼š  è·å¾—æ•°å­—å›¾åƒçš„9ä¸ªæ¨¡æ¿
+parameterï¼šæ— 
+return:    æ— 
 **********************/
 void Get_Model(vector<Mat>& models)
 {
 	Rect rect(0, 690, 2050, 220);//[  start_x,  start_y,  width, height  ]
-	Mat scr = imread("D:\\zx.jpg", CV_LOAD_IMAGE_GRAYSCALE);//¶ÁÈ¡»Ò¶ÈÍ¼Ïñ
-	threshold(scr, scr, 240, 255, 1);//¶ÔÍ¼Ïñ½øĞĞ¶şÖµ»¯
-	Mat dst = scr(rect);//½ØÈ¡Ä£°åÍ¼ÏñµÄÊı×Ö²¿·Ö
+	Mat scr = imread("D:\\zx.jpg", CV_LOAD_IMAGE_GRAYSCALE);//è¯»å–ç°åº¦å›¾åƒ
+	threshold(scr, scr, 240, 255, 1);//å¯¹å›¾åƒè¿›è¡ŒäºŒå€¼åŒ–
+	Mat dst = scr(rect);//æˆªå–æ¨¡æ¿å›¾åƒçš„æ•°å­—éƒ¨åˆ†
 	imwrite("D:\\model_zx.jpg", dst);
-	Mat element = getStructuringElement(MORPH_RECT, Size(3, 3));//¸¯Ê´»òÅòÕÍ²Ù×÷µÄÄÚºË
+	Mat element = getStructuringElement(MORPH_RECT, Size(3, 3));//è…èš€æˆ–è†¨èƒ€æ“ä½œçš„å†…æ ¸
 	Mat dst1, dst2;
-	erode(dst, dst1, element);//¸¯Ê´
-	dilate(dst1, dst2, element);//ÅòÕÍ
+	erode(dst, dst1, element);//è…èš€
+	dilate(dst1, dst2, element);//è†¨èƒ€
 	int right = 0;
-	for (int i = 0; i < 9; i++)//·Ö¸î1-9µÄÊı×ÖÄ£°å£¬²¢±£´æ£º
+	for (int i = 0; i < 9; i++)//åˆ†å‰²1-9çš„æ•°å­—æ¨¡æ¿ï¼Œå¹¶ä¿å­˜ï¼š
 	{
 		right = cut_image_y(right,dst2, models);
 	}
