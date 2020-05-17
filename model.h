@@ -1,10 +1,10 @@
 /*----------------------------
- *   @file£º     model.h
- *   @version£º  1.00[By ZST]
- *   @date£º     2020-5-10
- *   @brief£º    Êı×ÖÊ¶±ğÄ£°åÖÆ×÷  Í·ÎÄ¼ş
- *   @Author£º   Zheng Shitao Ö£Ê±ÌÎ
- *   http:\\github
+ *   @fileï¼š     model.h
+ *   @versionï¼š  1.00[By ZST]
+ *   @dateï¼š     2020-5-10
+ *   @briefï¼š    æ•°å­—è¯†åˆ«æ¨¡æ¿åˆ¶ä½œ  å¤´æ–‡ä»¶
+ *   @Authorï¼š   Zheng Shitao éƒ‘æ—¶æ¶›
+ *   https://github.com/zhengshitao0328/number_recognize-opencv3
  *----------------------------
  */
 #ifndef _model_H_
